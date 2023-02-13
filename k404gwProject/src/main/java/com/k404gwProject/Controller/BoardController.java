@@ -98,7 +98,7 @@ public class BoardController {
     @PostMapping(value = "/upload",  produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> uploadFile(MultipartFile file, HttpServletRequest request) {
     	System.out.println("upload 실행했음?");
-        ResponseEntity<String> entity = null;
+        ResponseEntity<String> entity = null; 
         try {
             String savedFilePath = fileService.uploadFile(file, request);
             entity = new ResponseEntity<>(savedFilePath, HttpStatus.CREATED);
