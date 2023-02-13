@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.k404gwProject.Dto.BoardDto;
 import com.k404gwProject.Entity.Board;
 import com.k404gwProject.Entity.Member;
+import com.k404gwProject.Entity.QnaBoardFile;
 import com.k404gwProject.Repository.BoardRepository;
 import com.k404gwProject.Repository.MemberRepository;
+import com.k404gwProject.Repository.QnaBoardFileRepository;
 
 import lombok.RequiredArgsConstructor;
 @Service
@@ -24,29 +26,30 @@ public class BoardServiceImpl implements BoardService {
 	private BoardRepository boardRepository;
 	
 	@Autowired
-	private MemberRepository memberRepository;	
-//	
-//	public void insert(Board board) {
-//		System.out.println("여기까진 왔니? setMember 전");
-////		qnaBoard.setMember(member);
-//		System.out.println("여기까진 왔니? setMember 후");
-////		System.out.println("qnaBoard에는 뭐가 있을까? :"+ qnaBoard.getMember());
-////		System.out.println("qnaBoard에는 뭐가 있을까? :"+ qnaBoard.getMember().getId());
-//		System.out.println("qnaBoard에는 뭐가 있을까? :"+ board.getId());
-//		System.out.println("qnaBoard에는 뭐가 있을까? :"+ board.getContent());
-//		System.out.println("qnaBoard에는 뭐가 있을까? :"+ board.getTitle());
-//		System.out.println("qnaBoard에는 뭐가 있을까? :"+ board.getName());
-//		
-//		boardRepository.save(board);
-//	}
-	public void createQboard(String title, String content, String name, HttpSession session) {
+	private MemberRepository memberRepository;
+	
+	@Autowired
+	private QnaBoardFileRepository qnaBoardFileRepository;
+
+	public void createQboard(String title, String content, String name, HttpSession session, BoardDto boardDto) {
 		Member sessionMember = (Member) session.getAttribute("email");
 		String email = sessionMember.getEmail();
 		Member LoginMember = memberRepository.findByEmail(email);
-		System.out.println("LoginMember 서비스 :" + LoginMember);
 		Board newBoard = new Board(LoginMember, title, content, name);
-		 System.out.println("newBoard에는 뭐가 들어있을까?"+newBoard);
-		boardRepository.save(newBoard);
+		List<QnaBoardFile> files = boardDto.getFiles();
+		 System.out.println("보드 서비스의 files에 들어있는 것 " + files);
+		 if (files == null) {
+			 boardRepository.save(newBoard);
+			 return;
+		 } else {
+			 for (QnaBoardFile file : files) {
+				 System.out.println("if문의 else 실행 시 file에 들어있는 것 : " + file);
+				 qnaBoardFileRepository.save(file);
+			 }
+				 
+				
+		 }			 
+		 boardRepository.save(newBoard);
 	}
 	
 	public List<BoardDto> findAll() {

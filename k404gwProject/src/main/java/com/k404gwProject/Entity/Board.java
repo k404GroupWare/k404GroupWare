@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.k404gwProject.Dto.BoardDto;
 
 import lombok.Data;
@@ -51,6 +53,10 @@ public class Board extends BaseEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="mem_id")
 	private Member member;
+	
+	@Column(name="qna_fileCnt")
+	@ColumnDefault("0")
+	private int fileCnt;
 	
 //	@Enumerated(EnumType.STRING)
 //	private Subject subject;	
