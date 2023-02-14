@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @SequenceGenerator(
@@ -23,6 +24,7 @@ import lombok.Setter;
 		)
 @Table(name="qna_board_img")
 @Getter @Setter
+@ToString
 public class QnaBoardFile extends BaseEntity {
 	@Id
 	@Column(name="qna_img_id")
@@ -43,6 +45,13 @@ public class QnaBoardFile extends BaseEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qnaNo")
 	private Board qnaNo;
+	
+	public QnaBoardFile() {}
+	public QnaBoardFile(Board qnaNo, String fileName, String oriFileName) {
+		this.qnaNo = qnaNo;
+		this.fileName = fileName;
+		this.oriFileName = oriFileName;
+	}
 	
 	public void updateFile (String oriFileName, String fileName, String fileUrl) {
 		this.oriFileName = oriFileName;

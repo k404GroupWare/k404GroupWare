@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.k404gwProject.Dto.BoardDto;
+import com.k404gwProject.Dto.QnaBoardFileDto;
+import com.k404gwProject.Entity.Board;
 import com.k404gwProject.Repository.BoardRepository;
 import com.k404gwProject.Repository.MemberRepository;
+import com.k404gwProject.Service.BoardFileService;
 import com.k404gwProject.Service.BoardService;
 import com.k404gwProject.Service.FileService;
 
@@ -40,6 +43,9 @@ public class BoardController {
 	
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private BoardFileService boardFileService;
 	
 	@GetMapping (value="/list")
 	public String boardList(Model model) {
@@ -90,8 +96,9 @@ public class BoardController {
 	
 	@PostMapping (value = "/write")
 	public String create(String title, String content, String name, HttpSession session, BoardDto boardDto, MultipartFile file, HttpServletRequest request) {
-		boardService.createQboard(title,content,name,session, boardDto);		
+		boardService.createQboard(title,content,name,session, boardDto, file, request);
 		return "redirect:/board/list";
+//		return "redirect:/board/list";
 	}
 	
     // 게시글 파일 업로드
@@ -104,8 +111,7 @@ public class BoardController {
             entity = new ResponseEntity<>(savedFilePath, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);            
         }
         return entity;
     }
@@ -136,8 +142,10 @@ public class BoardController {
     @PostMapping(value = "/delete")
     public ResponseEntity<String> deleteFile(String fileName, HttpServletRequest request) {
         ResponseEntity<String> entity = null;
-
+        
         try {
+        	System.out.println("딜리트 실행시 fileName: "+fileName);
+        	
             fileService.deleteFile(fileName, request);
             entity = new ResponseEntity<>("DELETED", HttpStatus.OK);
         } catch (Exception e) {
@@ -147,13 +155,32 @@ public class BoardController {
 
         return entity;
     }
+    @GetMapping(value="/fileList/{qnaNo}")
+    	public ResponseEntity<List<QnaBoardFileDto>> getFiles(@PathVariable("qnaNo") Board qnaNo) {
+    	 ResponseEntity<List<QnaBoardFileDto>> entity = null;
+    	 try {
+    		 List<QnaBoardFileDto> fileList = boardFileService.getBoardFile(qnaNo);
+    		 System.out.println("컨트롤러 fileList :" + fileList);
+    		 entity = new ResponseEntity<>(fileList,HttpStatus.OK);
+    		 
+    	 }catch(Exception e) {
+    		 e.printStackTrace();
+    		 entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	 }
+    	 
+    	 return entity;
+    }
+ 
 	
 	@GetMapping(value="/boardDtl/{id}")
 	public String boardDtl(@PathVariable("id") Long id, Model model) {
 		System.out.println("너 /boardDtl/{title} 실행했니?");
 		BoardDto boardDtl = boardService.boardDtl(id);
+		Long idTest = boardDtl.getId();
 		System.out.println("boardDtl의 값 확인!!!!"+boardDtl);
-		model.addAttribute("board", boardDtl);	
+		model.addAttribute("board", boardDtl);
+		model.addAttribute("boardFile",idTest);
+		System.out.println("idTest의 값 : "+ idTest);
 		return "board/boardDtl";
 	}
 	

@@ -1,12 +1,14 @@
 package com.k404gwProject.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.k404gwProject.Dto.QnaBoardFileDto;
+import com.k404gwProject.Entity.Board;
 import com.k404gwProject.Entity.QnaBoardFile;
 import com.k404gwProject.Repository.QnaBoardFileRepository;
 
@@ -20,20 +22,16 @@ public class BoardFileServiceImpl implements BoardFileService {
 	@Autowired
 	QnaBoardFileRepository qnaBoardFileRepository;
 	
-	public void saveItem (QnaBoardFile qnaBoardFile, MultipartFile file, HttpServletRequest request) {
-		
-		String oriFileName = "";
-		String fileName = "";
-		String fileUrl = "";
-		
-		// 파일이 있다면
-		if (file != null) {
-			oriFileName = file.getOriginalFilename();
-			fileName = fileService.getUuidFileName(oriFileName);
-			fileUrl = fileService.getRootPath(oriFileName, request);
-			
+	public List<QnaBoardFileDto> getBoardFile (Board qnaNo) {
+		List<QnaBoardFile> qnaBoardFile = qnaBoardFileRepository.findByQnaNoOrderByIdAsc(qnaNo);
+		List<QnaBoardFileDto> boardFileDtlTest = new ArrayList<QnaBoardFileDto>();
+		QnaBoardFileDto boardFileDtl = new QnaBoardFileDto();
+		for (QnaBoardFile boardFile : qnaBoardFile) {
+			List<QnaBoardFileDto> boardFileDtlTest2 = new ArrayList<QnaBoardFileDto>();
+			boardFileDtlTest2 = boardFileDtl.toQnaBoardFileDto(boardFile);
+			boardFileDtlTest=boardFileDtlTest2;
+			System.out.println("boardFileDtlTest 의 갯수 : " + boardFileDtlTest.size());
+		}
+		return boardFileDtlTest;
 	}
-		qnaBoardFile.updateFile(oriFileName, fileName, fileUrl);
-		qnaBoardFileRepository.save(qnaBoardFile);
-}
 }

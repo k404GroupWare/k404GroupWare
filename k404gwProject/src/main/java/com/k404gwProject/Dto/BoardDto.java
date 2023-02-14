@@ -8,12 +8,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import com.k404gwProject.Entity.Board;
-import com.k404gwProject.Entity.QnaBoardFile;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class BoardDto {
 	private Long id;
 	
@@ -27,7 +27,7 @@ public class BoardDto {
 	
 //	private Subject subject;
 	
-//    private String[] files;
+    private String[] files;
     
     private LocalDateTime regTime;
     
@@ -35,13 +35,13 @@ public class BoardDto {
     
     private int fileCnt;
 	
-	private List<QnaBoardFile> files = new ArrayList();
+//	private List<QnaBoardFile> files = new ArrayList();
 	
 	private List<Long>QnaBoardImgId = new ArrayList();
 	
-    public void setFiles(List<QnaBoardFile> files) {
+    public void setFiles(String[] files) {
         this.files = files;
-        setFileCnt(files.size());
+        setFileCnt(files.length);
     }
     
     public static BoardDto toBoardDto(Board board) {
@@ -55,7 +55,15 @@ public class BoardDto {
     	
     	return boardDto;
     }    
-   
+//   public String[] getFiles() {
+//	   int i;
+//	   String[] fileList;
+//	   for (i=0; i<5; i++) {
+//		  fiieList = files[i];
+//	   }
+//	   
+//	   return fileList;
+//   }
     public static BoardDto toMdBoardDto(Board board) {
     	BoardDto boardDto = new BoardDto();
     	boardDto.setTitle(board.getTitle());
