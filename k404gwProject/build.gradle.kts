@@ -33,6 +33,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
 	implementation("commons-fileupload:commons-fileupload:1.4")
 	implementation("org.imgscalr:imgscalr-lib:4.2")
+	implementation("org.javassist:javassist:3.27.0-GA")
+	
 }
 
 tasks.withType<Test> {

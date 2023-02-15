@@ -404,7 +404,7 @@
                 <button type="button" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
                 <div class="pull-right">
                     <button type="reset" class="btn btn-warning"><i class="fa fa-reply"></i> 초기화</button>
-                    <button type="submit"  class="btn btn-success"><i class="fa fa-save"></i> 저장</button>
+                    <button type="submit"   id = "saveButton" class="btn btn-success"><i class="fa fa-save"></i> 저장</button>
                 </div>
             </div>
         </div>
@@ -472,7 +472,7 @@
     
     <script id="fileTemplate"  type="text/x-handlebars-template">
     <li data-src="{{fullName}}">
-        <span class="mailbox-attachment-icon has-img">
+        <span id = "testImg" class="mailbox-attachment-icon has-img">
             <img src="{{imgSrc}}" alt="Attachment">
         </span>
         <div class="mailbox-attachment-info">

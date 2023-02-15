@@ -25,13 +25,16 @@ public class BoardFileServiceImpl implements BoardFileService {
 	public List<QnaBoardFileDto> getBoardFile (Board qnaNo) {
 		List<QnaBoardFile> qnaBoardFile = qnaBoardFileRepository.findByQnaNoOrderByIdAsc(qnaNo);
 		List<QnaBoardFileDto> boardFileDtlTest = new ArrayList<QnaBoardFileDto>();
-		QnaBoardFileDto boardFileDtl = new QnaBoardFileDto();
+		
 		for (QnaBoardFile boardFile : qnaBoardFile) {
-			List<QnaBoardFileDto> boardFileDtlTest2 = new ArrayList<QnaBoardFileDto>();
-			boardFileDtlTest2 = boardFileDtl.toQnaBoardFileDto(boardFile);
-			boardFileDtlTest=boardFileDtlTest2;
-			System.out.println("boardFileDtlTest 의 갯수 : " + boardFileDtlTest.size());
+			QnaBoardFileDto boardFileDtl = new QnaBoardFileDto();
+			boardFileDtl.setFileName(boardFile.getFileName());
+			boardFileDtl.setOriFileName(boardFile.getOriFileName());
+			boardFileDtlTest.add(boardFileDtl);
+			
 		}
+		System.out.println("boardFileDtlTest :" + boardFileDtlTest);
+		System.out.println("boardFileDtlTest의 길이 :" + boardFileDtlTest.size());
 		return boardFileDtlTest;
 	}
 }
