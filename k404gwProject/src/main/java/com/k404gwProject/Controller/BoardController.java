@@ -171,7 +171,7 @@ public class BoardController {
     	 
     	 return entity;
     }
- // 게시글 파일 전체 삭제
+    // 게시글 파일 전체 삭제
     @PostMapping(value = "/deleteAll")
     public ResponseEntity<String> deleteAllFiles(@RequestParam("files[]") String[] files, HttpServletRequest request) {
 

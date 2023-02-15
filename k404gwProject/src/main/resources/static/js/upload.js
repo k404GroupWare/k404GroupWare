@@ -122,6 +122,7 @@ function deleteFile(url, that) {
 
 // 파일 정보 처리
 function getFileInfo(fullName) {
+	console.log(fullName);	
 	console.log("getFileInfo 실행했니?");
     var originalFileName;   // 화면에 출력할 파일명
     var imgSrc;             // 썸네일 or 파일아이콘 이미지 파일 출력 요청 URL
@@ -152,7 +153,7 @@ function getFileInfo(fullName) {
 
 // 이미지 파일 유무 확인
 function checkImageType(fullName) {
-    var pattern = /jpg$|gif$|png$|jpge$/i;
+    var pattern = /jpg$|gif$|png$|jpeg$/i;
     return fullName.match(pattern);
 }
 

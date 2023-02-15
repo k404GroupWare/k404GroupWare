@@ -99,7 +99,7 @@ public class BoardServiceImpl implements BoardService {
 		Board board = boardRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 		board.updateBoard(boardDto);
 		String[] files = boardDto.getFiles();
-		System.out.println("서비스 업데이트 files : " + files[0]);
+
 //		boardRepository.save(board2);
 		List<QnaBoardFile> testFilesList = qnaBoardFileRepository.findByQnaNoOrderByIdAsc(qnaNo);
 		for (QnaBoardFile testFiles : testFilesList)  {
@@ -121,8 +121,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteQboard(BoardDto boardDto) {
-		boardRepository.deleteById(boardDto.getId());
-		
+		boardRepository.deleteById(boardDto.getId());		
 	}
 	
 	
