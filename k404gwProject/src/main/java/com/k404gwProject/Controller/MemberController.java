@@ -61,10 +61,7 @@ public class MemberController {
 	@PostMapping(value = "/login") // 로그인 로직 처리
 	public String loginMember(HttpServletRequest request, HttpServletResponse response, Model model, String email,MemberFormDto memberFormDto) {
 		Member loginMember = memberService.loginMember(email);
-		
-//		MemberFormDto memberFormDto = memberService.getMemberDtl(email);
-		System.out.println("loginMember: " +loginMember);
-		
+				
 		if(loginMember == null) {
 			return "welcome";
 		}	else  if(!loginMember.getPwd().equals(memberFormDto.getPwd())) {
@@ -108,19 +105,14 @@ public class MemberController {
 	        	System.out.println(bindingResult);
 	            return "member/mdForm";
 	        }
-		  HttpSession session = request.getSession();
-		  Member member = (Member) session.getAttribute("email");
-		  System.out.println("세션 변경 전 : " +member);
+		  HttpSession session = request.getSession();		  
 		    try { 
 			memberService.updateMember(memberFormDto);
 
 		Member memT = memberRepository.findByEmail(email);
-	       System.out.println(memT);
 	       session.setAttribute("email", memT );
 	        } catch (Exception e){
-	            model.addAttribute("errorMessage", "회원 수정 중 에러가 발생했습니다.");
-	            System.out.println(memberFormDto.getId());
-	            System.out.println("수행했니");
+	            model.addAttribute("errorMessage", "회원 수정 중 에러가 발생했습니다.");	            
 	            return "member/mdForm";
 	        }
 		    
