@@ -117,6 +117,7 @@ function deleteFile(url, that) {
 // 파일 정보 처리
 function getFileInfo(fullName) {
 	console.log("getFileInfo 실행했니?");
+	console.log("fullName이 뭘까요?"+ fullName);
     var originalFileName;   // 화면에 출력할 파일명
     var imgSrc;             // 썸네일 or 파일아이콘 이미지 파일 출력 요청 URL
     var originalFileUrl;    // 원본파일 요청 URL

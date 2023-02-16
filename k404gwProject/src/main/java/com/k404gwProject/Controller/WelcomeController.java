@@ -2,6 +2,8 @@ package com.k404gwProject.Controller;
 
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,6 +13,12 @@ public class WelcomeController {
 	 @GetMapping(value = "/")
 	 public String welcome() {
 	
+		 return "welcome";
+	 }
+	 
+	 @GetMapping(value= "/logout")
+	 public String logout(HttpSession session) {
+		 session.invalidate();
 		 return "welcome";
 	 }
 	 
