@@ -223,9 +223,8 @@ public class BoardController {
 		BoardDto boardDtl = boardService.boardDtl(id);
 		
 		System.out.println("title 모 야?"+id);
-		System.out.println("수정한후 boardDtl.getTitle()에는 뭐가 들어있을까요?"+boardDtl.getTitle());
+		System.out.println("수정한후 boardDtl.getTitle()에는 뭐가 들어있을까요?"+boardDtl.getTitle());		
 		
-		model.addAttribute("board", boardDtl);
 		return "board/boardDtl";
 	}
 	// 삭제하기

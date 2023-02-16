@@ -26,8 +26,15 @@
     		height: 200px;
     		border: 2px dotted #0b58a2;
 		}
+		ul, .box-footer {
+			display: flex;
+		}
+		.boxbox {
+			justify-content: flex-end;
+		}
 		ul, li {
-		 	    list-style: none;
+		 	list-style: none;
+		 	padding: 5px;
 		}		
 	</style>
 </head>
@@ -400,12 +407,13 @@
                     </div>
                 </div>
             </div>
-            <div class="box-footer">
+            <div class="box-footer boxbox">
                 <ul class="mailbox-attachments clearfix uploadedFileList"></ul>
             </div>
             <div class="box-footer">
-                <a href="/board/list" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</a>
+                
                 <div class="pull-right">
+                	<a href="/board/list" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</a>
                     <button type="reset" class="btn btn-warning"><i class="fa fa-reply"></i> 초기화</button>
                     <button type="submit"   id = "saveButton" class="btn btn-success"><i class="fa fa-save"></i> 저장</button>
                 </div>

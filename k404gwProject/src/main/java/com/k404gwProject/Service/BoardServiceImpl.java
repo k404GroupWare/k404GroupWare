@@ -94,18 +94,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public void updateQboard(BoardDto boardDto, Long id, Board qnaNo) {
-		System.out.println("서비스 id 값 :" + id);
-		System.out.println("서비스 id 값 dto 형으로 :" + boardDto.getId());
+
 		Board board = boardRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 		board.updateBoard(boardDto);
 		String[] files = boardDto.getFiles();
 
-//		boardRepository.save(board2);
 		List<QnaBoardFile> testFilesList = qnaBoardFileRepository.findByQnaNoOrderByIdAsc(qnaNo);
 		for (QnaBoardFile testFiles : testFilesList)  {
 				qnaBoardFileRepository.delete(testFiles);
-		}
-		
+		}		
 		
 		 if(files == null)
 			 return;

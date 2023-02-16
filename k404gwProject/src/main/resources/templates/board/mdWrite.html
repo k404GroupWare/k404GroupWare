@@ -26,8 +26,15 @@
     		height: 200px;
     		border: 2px dotted #0b58a2;
 		}
+		ul, .box-footer {
+			display: flex;
+		}
+		.boxbox {
+			justify-content: flex-end;
+		}
 		ul, li {
-		 	    list-style: none;
+		 	list-style: none;
+		 	padding: 5px;
 		}
 	</style>
 </head>
@@ -116,7 +123,7 @@
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
                 </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
@@ -406,12 +413,13 @@
             <div class="box-footer">
                 <ul class="mailbox-attachments clearfix uploadedFileList"></ul>
             </div>
-            <div class="box-footer">
-                <a href="/board/list" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</a>
+            <div class="box-footer boxbox">
+                
                 <div class="pull-right">
 <!--                     <button type="submit"  id = "delButton" class="btn btn-warning delBoard"  th:formaction="'/board/delete/'+${board.id}" th:formmethod="get"><i class="fa fa-reply"></i> 삭제</button> -->
 <!--                     <button type="submit"  id = "saveButton" class="btn btn-success"  th:formaction="'/board/mdForm/'+${board.id}"  th:formmethod="post"><i class="fa fa-save"></i> 저장</button> -->
-   <button type="submit"  id = "delButton" class="btn btn-warning delBoard"  ><i class="fa fa-reply"></i> 삭제</button>
+					<a href="/board/list" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</a>
+   					<button type="submit"  id = "delButton" class="btn btn-danger delBoard"  ><i class="fa fa-trash"></i> 삭제</button>
                     <button type="submit"  id = "saveButton" class="btn btn-success"  ><i class="fa fa-save"></i> 저장</button>
      		
                 </div>

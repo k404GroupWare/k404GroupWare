@@ -67,6 +67,7 @@ public class Board extends BaseEntity {
 	
 	@OneToMany(mappedBy = "qnaNo",  orphanRemoval=true)
 	private List<QnaBoardFile> qnaBoardFileList;
+	
 //	@Enumerated(EnumType.STRING)
 //	private Subject subject;	
 	
